@@ -1,5 +1,6 @@
 const axios = require('axios');
 const crypto = require('crypto');
+const env = require('../commons/env_variables');
 const channelId = '1535979058';
 const channelSecret = '0f60aa358b49edba6a87e398a99c6120';
 const channelAccessToken = 'PEph1XXJHO96VvRdx7mY3ieET/GUDAEzsn9GgRJBgC+zfUprYCb2WPvV8TT25jU6Soba3N7a7U7y+YLqr8KLqhsrxsDcYQaHQPDo9d4nIE/86P/5gVF1SGkIVGNuK3yUWglDVLJ/LQI1027J8iZ4OwdB04t89/1O/w1cDnyilFU=';
@@ -45,15 +46,23 @@ var fn_line = async (ctx, next) => {
     return;
   }
 
-  console.log(ctx.request.rawBody);
+  // TODO: 判斷收到的消息, 回覆適當的消息
   const replyToken = ctx.request.body.events[0].replyToken;
   const messages = { type: 'text', text: 'Hello World!' };
+
   sendReplyMessage(replyToken, messages);
 
-  ctx.response.body = 'Hello';
+  ctx.response.body = '0_o';
 };
 
+var test = async (ctx, next) => {
+  console.log(env('test'));
+  console.log(process.env);
+  console.log(process.env.test);
+  console.log(process.env['test']);
+};
 
 module.exports = {
-  'POST /line': fn_line
+  'POST /line': fn_line,
+  'GET /line': test
 };
