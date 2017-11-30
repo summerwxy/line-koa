@@ -56,10 +56,8 @@ var fn_line = async (ctx, next) => {
 };
 
 var test = async (ctx, next) => {
-  // console.log(env('test'));
-  console.log(process.env);
-  console.log(process.env.test);
-  console.log(process.env['test']);
+  console.log('log from line.js: ' + env('test'));
+  
 };
 
 module.exports = {

@@ -1,19 +1,23 @@
-var getEnvFromFile = function(key) {
+const fs = require('fs');
+
+var getEnv = function(key) {
   if (key.indexOf('=') > -1) {
     throw Error('key contains =, remote it from key name');
   }
   var result = undefined;
-  require('fs').readFileSync('.env').toString().split('\n').forEach(function (line) { 
-    const re = new RegExp('^\s*' + key + '\s*=\s*(.*)\s*' , "g");
-    if (re.test(line)) {
-      const i = line.indexOf('=');
-      result = line.substr(i + 1);
-    }
-  });
+  const path = '.env';
+  if (fs.existsSync(path)) {
+    fs.readFileSync(path).toString().split('\n').forEach(function (line) { 
+      const re = new RegExp('^\s*' + key + '\s*=\s*(.*)\s*' , "g");
+      if (re.test(line)) {
+        const i = line.indexOf('=');
+        result = line.substr(i + 1);
+      }
+    });
+  } else {
+    result = process.env[key];
+  }
   return result;
 };
 
-
-
-
-module.exports = getEnvFromFile;
+module.exports = getEnv;
