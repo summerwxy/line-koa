@@ -4,6 +4,9 @@ const channelId = '1535979058';
 const channelSecret = '0f60aa358b49edba6a87e398a99c6120';
 const channelAccessToken = 'PEph1XXJHO96VvRdx7mY3ieET/GUDAEzsn9GgRJBgC+zfUprYCb2WPvV8TT25jU6Soba3N7a7U7y+YLqr8KLqhsrxsDcYQaHQPDo9d4nIE/86P/5gVF1SGkIVGNuK3yUWglDVLJ/LQI1027J8iZ4OwdB04t89/1O/w1cDnyilFU=';
 
+var toArray = function (maybeArr) {
+  return Array.isArray(maybeArr) ? maybeArr : [maybeArr];
+};
 
 var signatureValidation = function (ctx) {
   const body = ctx.request.rawBody;
@@ -23,7 +26,7 @@ var sendReplyMessage = function (replyToken, messages) {
     },
     data: {
       replyToken: replyToken,
-      messages: messages
+      messages: toArray(messages)
     }    
   }).then(function(response) {
     console.log('response: ');
