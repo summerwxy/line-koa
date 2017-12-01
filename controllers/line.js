@@ -109,7 +109,7 @@ let test = async (ctx, next) => {
       requestTimeout: 100
   }
 
-  urlToImage('http://www.baidu.com', 'baidu.png', options)
+  urlToImage('http://www.baidu.com', './static/baidu.png', options)
   .then(function() {
       // do stuff with google.png
   })

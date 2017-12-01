@@ -28,6 +28,7 @@ app.use(async (ctx, next) => {
 
 
 app.use(controller());
+app.use(require('koa-static-server')({rootDir: 'static', rootPath: '/static'}))
 
 
 // 在端口3000监听:
