@@ -99,7 +99,24 @@ let fn_line = async (ctx, next) => {
 };
 
 let test = async (ctx, next) => {
-  console.log('log from line.js: ' + isDev);
+  // test code here
+  var urlToImage = require('url-to-image');
+
+  var options = {
+      width: 600,
+      height: 800,
+      // Give a short time to load additional resources
+      requestTimeout: 100
+  }
+
+  urlToImage('http://www.baidu.com', 'baidu.png', options)
+  .then(function() {
+      // do stuff with google.png
+  })
+  .catch(function(err) {
+      console.error(err);
+  });
+
 };
 
 module.exports = {
