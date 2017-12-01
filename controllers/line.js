@@ -5,6 +5,7 @@ const channelId = env('CHANNEL_ID');
 const channelSecret = env('CHANNEL_SECRET');
 const channelAccessToken = env('CHANNEL_ACCESS_TOKEN');
 const isDev = env('IS_DEV') === 'true';
+const unsplash = require('../commons/api_unsplash');
 
 let toArray = function (maybeArr) {
   return Array.isArray(maybeArr) ? maybeArr : [maybeArr];
@@ -19,8 +20,8 @@ let signatureValidation = function (ctx) {
 
 let sendReplyMessage = function (replyToken, messages) {
   if (isDev) {
-    console.log('replyToken=> ' + replyToken);
-    console.log('messages=> ' + JSON.stringify(messages));
+    console.log('>>>>> replyToken-> ' + replyToken);
+    console.log('>>>>> messages-> ' + JSON.stringify(messages));
   } else if (messages) {
     axios({
       method: 'post',
@@ -40,7 +41,17 @@ let sendReplyMessage = function (replyToken, messages) {
     });
   }
 };
-
+// ====== start of handle message =====
+let handleMessage = async function (event) {
+  let text = event.message.text;
+  let result = { type: 'text', text: text };
+  if (text == '圖') {
+    let foo = await unsplash();
+    result = { "type": "image", "originalContentUrl": foo.data.urls.regular, "previewImageUrl": foo.data.urls.thumb }
+  }
+  return result;
+};
+// ====== end of handle message =====
 
 let fn_line = async (ctx, next) => {
   if (!signatureValidation(ctx)) {
@@ -58,8 +69,7 @@ let fn_line = async (ctx, next) => {
     const replyToken = event.replyToken;
     let messages = { };
     if (event.message.type == 'text') {
-      messages = { type: 'text', text: event.message.text };
-      console.log(event);
+      messages = await handleMessage(event);
     } else if (event.message.type == 'sticker') { // {"type":"sticker","id":"7068005370700","stickerId":"4","packageId":"1"}
       messages = { type: 'sticker', stickerId: event.message.stickerId, packageId: event.message.packageId } 
     } else if (event.message.type == 'image') { // {"type":"image","id":"7068019237470"}
