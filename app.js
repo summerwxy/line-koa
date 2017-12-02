@@ -33,10 +33,15 @@ app.use(async (ctx, next) => {
 });
 
 // bot
-app.use((ctx, next) => ctx.method === 'POST' || ctx.url === '/secret-path'
-  ? bot.handleUpdate(ctx.request.body, ctx.response)
-  : next()
-)
+app.use(async (ctx, next) => {
+    if (ctx.method === 'POST' || ctx.url === '/secret-path') {
+        console.log('bot');
+        bot.handleUpdate(ctx.request.body, ctx.response);
+    } else {
+        console.log('next');
+        next();
+    }
+})
 
 app.use(controller());
 app.use(require('koa-static-server')({rootDir: 'static', rootPath: '/static'}))
