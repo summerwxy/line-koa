@@ -10,6 +10,11 @@ const Telegraf = require('telegraf');
 const env = require('./commons/env_variables');
 const bot = new Telegraf(env('TELEGRAM_TOKEN'));
 bot.telegram.setWebhook('https://line-koa.herokuapp.com/secret-path');
+bot.command('help', (ctx) => ctx.reply('Try send a sticker!'));
+bot.hears('hi', (ctx) => ctx.reply('Hey there!'));
+bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy!'));
+bot.on('sticker', (ctx) => ctx.reply('👍'));
+
 
 // 导入controller middleware:
 const controller = require('./commons/controller');
@@ -34,7 +39,7 @@ app.use(async (ctx, next) => {
 
 // bot
 app.use(async (ctx, next) => {
-    if (ctx.method === 'POST' || ctx.url === '/secret-path') {
+    if (ctx.method === 'POST' && ctx.url === '/secret-path') {
         console.log('bot');
         bot.handleUpdate(ctx.request.body, ctx.response);
     } else {
