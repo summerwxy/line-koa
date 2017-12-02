@@ -5,6 +5,12 @@ const Koa = require('koa');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
 
+// bot
+const Telegraf = require('telegraf');
+const env = require('./commons/env_variables');
+const bot = new Telegraf(env('TELEGRAM_TOKEN'));
+bot.telegram.setWebhook('https://line-koa.herokuapp.com/secret-path');
+
 // 导入controller middleware:
 const controller = require('./commons/controller');
 
@@ -26,6 +32,11 @@ app.use(async (ctx, next) => {
     console.log(`Time: ${ms}ms`); // 打印耗费时间
 });
 
+// bot
+app.use((ctx, next) => ctx.method === 'POST' || ctx.url === '/secret-path'
+  ? bot.handleUpdate(ctx.request.body, ctx.response)
+  : next()
+)
 
 app.use(controller());
 app.use(require('koa-static-server')({rootDir: 'static', rootPath: '/static'}))
