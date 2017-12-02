@@ -40,10 +40,9 @@ app.use(async (ctx, next) => {
 // bot
 app.use(async (ctx, next) => {
     if (ctx.method === 'POST' && ctx.url === '/secret-path') {
-        console.log('bot');
         bot.handleUpdate(ctx.request.body, ctx.response);
+        ctx.response.body = '0_o';
     } else {
-        console.log('next');
         next();
     }
 })
