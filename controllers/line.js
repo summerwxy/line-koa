@@ -1,10 +1,9 @@
 const axios = require('axios');
 const crypto = require('crypto');
-const env = require('../commons/env_variables');
-const channelId = env('CHANNEL_ID');
-const channelSecret = env('CHANNEL_SECRET');
-const channelAccessToken = env('CHANNEL_ACCESS_TOKEN');
-const isDev = env('IS_DEV') === 'true';
+const channelId = process.env.CHANNEL_ID;
+const channelSecret = process.env.CHANNEL_SECRET;
+const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
+const isDev = process.env.IS_DEV === 'true';
 const unsplash = require('../commons/api_unsplash');
 
 let toArray = function (maybeArr) {
@@ -100,6 +99,7 @@ let fn_line = async (ctx, next) => {
 
 let test = async (ctx, next) => {
   // test code here
+  /*
   var urlToImage = require('url-to-image');
 
   var options = {
@@ -116,7 +116,8 @@ let test = async (ctx, next) => {
   .catch(function(err) {
       console.error(err);
   });
-
+  */
+  console.log(process.env.IS_DEV);
 };
 
 module.exports = {

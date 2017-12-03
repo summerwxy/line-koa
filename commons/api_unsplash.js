@@ -1,6 +1,5 @@
 const axios = require('axios');
-const env = require('./env_variables');
-const appId = env('UNSPLASH_APPLICATION_ID');
+const appId = process.env.UNSPLASH_APPLICATION_ID;
 
 let random = async function(key) {
   let url = 'https://api.unsplash.com/photos/random';

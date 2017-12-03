@@ -1,3 +1,6 @@
+// https://github.com/motdotla/dotenv , use process.env.XXXX
+require('dotenv').config();
+
 // 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:
 const Koa = require('koa');
 
@@ -7,13 +10,12 @@ const bodyParser = require('koa-bodyparser');
 
 // bot
 const Telegraf = require('telegraf');
-const env = require('./commons/env_variables');
-const bot = new Telegraf(env('TELEGRAM_TOKEN'));
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 bot.telegram.setWebhook('https://line-koa.herokuapp.com/secret-path');
-bot.command('help', (ctx) => ctx.reply('Try send a sticker!'));
-bot.hears('hi', (ctx) => ctx.reply('Hey there!'));
-bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy!'));
-bot.on('sticker', (ctx) => ctx.reply('👍'));
+// bot.command('help', (ctx) => ctx.reply('Try send a sticker!'));
+// bot.hears('hi', (ctx) => ctx.reply('Hey there!'));
+// bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy!'));
+// bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 
 // 导入controller middleware:
@@ -41,7 +43,8 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
     if (ctx.method === 'POST' && ctx.url === '/secret-path') {
         console.log(ctx.request.rawBody);
-        bot.handleUpdate(ctx.request.body, ctx.response);
+        // TODO: 把傳給這個 bot 的圖片都記錄下來 就行了   不過這樣很被動 要自己更新圖片 沒驚喜
+        // bot.handleUpdate(ctx.request.body, ctx.response);
         ctx.response.body = '0_o';
     } else {
         next();

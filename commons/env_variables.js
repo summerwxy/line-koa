@@ -1,3 +1,5 @@
+// useless file.
+
 const fs = require('fs');
 
 let getEnv = function(key) {
