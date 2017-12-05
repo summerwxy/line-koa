@@ -1,3 +1,4 @@
+// 開發測試用的版本 Line -> Dialogflow -> Heroku
 const axios = require('axios');
 const crypto = require('crypto');
 const channelId = process.env.CHANNEL_ID;
@@ -53,6 +54,9 @@ let handleMessage = async function (event) {
 // ====== end of handle message =====
 
 let fn_line = async (ctx, next) => {
+  console.log(ctx);
+  
+  /*
   if (!signatureValidation(ctx)) {
     ctx.response.status = 403;
     ctx.response.body = '403 Forbidden';
@@ -93,7 +97,7 @@ let fn_line = async (ctx, next) => {
   } else { // TODO: finish all events
     console.log(ctx.request.rawBody); // CATCH IT
   }
-
+  */
   ctx.response.body = '0_o';
 };
 
@@ -123,6 +127,6 @@ let test = async (ctx, next) => {
 };
 
 module.exports = {
-  'POST /line': fn_line,
-  'GET /line': test
+  'POST /okay': fn_line,
+  'GET /okay': test
 };
