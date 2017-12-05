@@ -73,10 +73,11 @@ let fn_dev = async (ctx, next) => {
   // console.log(ctx.request.body.queryResult.fulfillmentMessages);
   // console.log('---------------------------------------');
   // console.log(ctx.request.body.originalDetectIntentRequest);
-  message.payload = {
-    replyToken: ctx.request.body.originalDetectIntentRequest.payload.data.replyToken,
-    messages: toArray({ "type": "image", "originalContentUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png', "previewImageUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png' })
-  }
+  console.log(ctx.request.body.originalDetectIntentRequest.payload);
+  // message.payload = {
+  //   replyToken: ctx.request.body.originalDetectIntentRequest.payload.data.replyToken,
+  //   messages: toArray({ "type": "image", "originalContentUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png', "previewImageUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png' })
+  // }
   
    
 /*
