@@ -99,7 +99,6 @@ let fn_line = async (ctx, next) => {
 
 let test = async (ctx, next) => {
   // test code here
-  /*
   var urlToImage = require('url-to-image');
 
   var options = {
@@ -116,7 +115,6 @@ let test = async (ctx, next) => {
   .catch(function(err) {
       console.error(err);
   });
-  */
   console.log(process.env.IS_DEV);
 };
 
