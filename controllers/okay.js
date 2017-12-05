@@ -120,12 +120,10 @@ let fn_dev = async (ctx, next) => {
   }
   */
 
-  // Webhook call failed. Error: Failed to parse webhook JSON response: Expect message object but got: "0_o".
+  // 回覆內容參考這個網址
+  // https://cloud.google.com/dialogflow-enterprise/docs/reference/rpc/google.cloud.dialogflow.v2beta1#google.cloud.dialogflow.v2beta1.WebhookResponse
   ctx.response.header = {'Content-type': 'application/json'};
-  let body = {};
-  body.fulfillment_text = '11111';
-
-  ctx.response.body = JSON.stringify(body);
+  ctx.response.body = '{}';
 };
 
 let fn_test = async (ctx, next) => {
