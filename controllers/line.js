@@ -110,10 +110,12 @@ let test = async (ctx, next) => {
 
   urlToImage('http://www.baidu.com', './static/baidu.png', options)
   .then(function() {
-      // do stuff with google.png
+    console.log('okay');
+    // do stuff with google.png
   })
   .catch(function(err) {
-      console.error(err);
+    console.log('create file fail');
+    console.error(err);
   });
   console.log(process.env.IS_DEV);
 };
