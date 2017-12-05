@@ -121,7 +121,12 @@ let fn_dev = async (ctx, next) => {
   */
 
   // Webhook call failed. Error: Failed to parse webhook JSON response: Expect message object but got: "0_o".
-  ctx.response.body = '{dummy: "0_o"}';
+  ctx.response.header = {'Content-type': 'application/json'};
+  let body = {};
+  body.speech = '11111';
+  body.displayText = '22222';
+  
+  ctx.response.body = JSON.stringify(body);
 };
 
 let fn_test = async (ctx, next) => {
