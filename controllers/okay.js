@@ -11,6 +11,7 @@ let toArray = function (maybeArr) {
   return Array.isArray(maybeArr) ? maybeArr : [maybeArr];
 };
 
+// 因為設置上, 現在是 Dialogflow 發通知過來, 所以不是這個驗證方式
 let signatureValidation = function (ctx) {
   const body = ctx.request.rawBody;
   const signature = crypto.createHmac('SHA256', channelSecret).update(body).digest('base64');
@@ -41,6 +42,10 @@ let sendReplyMessage = function (replyToken, messages) {
     });
   }
 };
+
+let isFromDialogflow = function(ctx) {
+  console.log(ctx.headers);
+};
 // ====== start of handle message =====
 let handleMessage = async function (event) {
   let text = event.message.text;
@@ -54,7 +59,7 @@ let handleMessage = async function (event) {
 // ====== end of handle message =====
 
 let fn_line = async (ctx, next) => {
-  console.log(signatureValidation(ctx));
+  console.log(isFromDialogflow(ctx));
   console.log(ctx.request.body);
   
   /*
