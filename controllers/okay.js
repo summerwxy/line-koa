@@ -54,7 +54,8 @@ let handleMessage = async function (event) {
 // ====== end of handle message =====
 
 let fn_line = async (ctx, next) => {
-  console.log(ctx);
+  console.log(signatureValidation(ctx));
+  console.log(ctx.request.body);
   
   /*
   if (!signatureValidation(ctx)) {
