@@ -65,7 +65,9 @@ let fn_dev = async (ctx, next) => {
     ctx.response.body = '403 Forbidden';
     return;
   }
+  let messages = {};
 
+  console.log(ctx.request.body);
 /*
  { responseId: '4b44c518-3682-4f00-b329-291c9afad44c',
    queryResult: 
@@ -123,7 +125,7 @@ let fn_dev = async (ctx, next) => {
   // 回覆內容參考這個網址
   // https://cloud.google.com/dialogflow-enterprise/docs/reference/rpc/google.cloud.dialogflow.v2beta1#google.cloud.dialogflow.v2beta1.WebhookResponse
   ctx.response.header = {'Content-type': 'application/json'};
-  ctx.response.body = '{}';
+  ctx.response.body = JSON.stringify(messages);
 };
 
 let fn_test = async (ctx, next) => {
