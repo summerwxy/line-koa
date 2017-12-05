@@ -65,13 +65,15 @@ let fn_dev = async (ctx, next) => {
     ctx.response.body = '403 Forbidden';
     return;
   }
-  let messages = {};
+  let message = {};
 
-  console.log(ctx.request.body);
-  console.log('---------------------------------------');
-  console.log(ctx.request.body.queryResult.fulfillmentMessages);
-  console.log('---------------------------------------');
-  console.log(ctx.request.body.originalDetectIntentRequest);
+
+  // console.log(ctx.request.body);
+  // console.log('---------------------------------------');
+  // console.log(ctx.request.body.queryResult.fulfillmentMessages);
+  // console.log('---------------------------------------');
+  // console.log(ctx.request.body.originalDetectIntentRequest);
+  message.payload = { "type": "image", "originalContentUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png', "previewImageUrl": 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png' };
 /*
  { responseId: '4b44c518-3682-4f00-b329-291c9afad44c',
    queryResult: 
@@ -129,7 +131,7 @@ let fn_dev = async (ctx, next) => {
   // 回覆內容參考這個網址
   // https://cloud.google.com/dialogflow-enterprise/docs/reference/rpc/google.cloud.dialogflow.v2beta1#google.cloud.dialogflow.v2beta1.WebhookResponse
   ctx.response.header = {'Content-type': 'application/json'};
-  ctx.response.body = JSON.stringify(messages);
+  ctx.response.body = JSON.stringify(message);
 };
 
 let fn_test = async (ctx, next) => {
