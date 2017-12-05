@@ -10,7 +10,7 @@ const bodyParser = require('koa-bodyparser');
 // bot
 const Telegraf = require('telegraf');
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
-bot.telegram.setWebhook('https://line-koa.herokuapp.com/secret-path');
+// bot.telegram.setWebhook('https://line-koa.herokuapp.com/secret-path'); // 用了 Dialogflow 所以這邊不要設定
 // bot.command('help', (ctx) => ctx.reply('Try send a sticker!'));
 // bot.hears('hi', (ctx) => ctx.reply('Hey there!'));
 // bot.hears(/buy/i, (ctx) => ctx.reply('Buy-buy!'));

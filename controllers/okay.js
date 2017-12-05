@@ -58,17 +58,32 @@ let handleMessage = async function (event) {
 };
 // ====== end of handle message =====
 
-let fn_line = async (ctx, next) => {
-  console.log(isFromDialogflow(ctx));
-  console.log(ctx.request.body);
-  
-  /*
-  if (!signatureValidation(ctx)) {
+let fn_dev = async (ctx, next) => {
+  if (!isFromDialogflow(ctx)) {
+    // TODO: 不想有反應, 應該怎麼處理??
     ctx.response.status = 403;
     ctx.response.body = '403 Forbidden';
     return;
   }
 
+/*
+ { responseId: '4b44c518-3682-4f00-b329-291c9afad44c',
+   queryResult: 
+    { queryText: '哈哈',
+      action: 'input.unknown',
+      parameters: {},
+      allRequiredParamsPresent: true,
+      fulfillmentMessages: [ [Object] ],
+      intent: 
+       { name: 'projects/api-ai-7f155/agent/intents/efa49cfc-3058-406d-a7f2-1c5580d19e0c',
+         displayName: 'Default Fallback Intent' },
+      intentDetectionConfidence: 1,
+      diagnosticInfo: {},
+      languageCode: 'zh-tw' },
+   originalDetectIntentRequest: { payload: { data: [Object], source: 'line' } },
+   session: 'projects/api-ai-7f155/agent/sessions/6716b2a1-fb12-4514-b687-de5f2300ebd8' }
+ */
+/*
   const body = ctx.request.body;
   const events = body.events;
   if (events[0].replyToken == '00000000000000000000000000000000') {
@@ -104,10 +119,12 @@ let fn_line = async (ctx, next) => {
     console.log(ctx.request.rawBody); // CATCH IT
   }
   */
-  ctx.response.body = '0_o';
+
+  // Webhook call failed. Error: Failed to parse webhook JSON response: Expect message object but got: "0_o".
+  ctx.response.body = '{dummy: "0_o"}';
 };
 
-let test = async (ctx, next) => {
+let fn_test = async (ctx, next) => {
   // test code here
   /*
   var urlToImage = require('url-to-image');
@@ -133,6 +150,6 @@ let test = async (ctx, next) => {
 };
 
 module.exports = {
-  'POST /okay': fn_line,
-  'GET /okay': test
+  'POST /okay': fn_dev,
+  'GET /okay': fn_test
 };
