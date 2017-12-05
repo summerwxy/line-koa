@@ -44,7 +44,7 @@ let sendReplyMessage = function (replyToken, messages) {
 };
 
 let isFromDialogflow = function(ctx) {
-  console.log(ctx.headers);
+  return ctx.headers[process.env.DIALOGFOLW_HEADERS_KEY] === process.env.DIALOGFOLW_HEADERS_VALUE;
 };
 // ====== start of handle message =====
 let handleMessage = async function (event) {
