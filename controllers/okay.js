@@ -68,6 +68,10 @@ let fn_dev = async (ctx, next) => {
   let messages = {};
 
   console.log(ctx.request.body);
+  console.log('---------------------------------------');
+  console.log(ctx.request.body.queryResult.fulfillmentMessages);
+  console.log('---------------------------------------');
+  console.log(ctx.request.body.originalDetectIntentRequest);
 /*
  { responseId: '4b44c518-3682-4f00-b329-291c9afad44c',
    queryResult: 
